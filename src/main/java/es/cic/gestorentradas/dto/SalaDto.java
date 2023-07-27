@@ -1,21 +1,29 @@
 package es.cic.gestorentradas.dto;
 
+import java.util.Arrays;
 import java.util.List;
 
-public class SalaDto {
-    private Long id;
+public enum SalaDto {
+
+    SALA_1(100, Arrays.asList(SesionDto.SESION_1, SesionDto.SESION_2, SesionDto.SESION_3)),
+    SALA_2(50, Arrays.asList(SesionDto.SESION_4, SesionDto.SESION_5, SesionDto.SESION_6)),
+    SALA_3(20, Arrays.asList(SesionDto.SESION_7, SesionDto.SESION_8, SesionDto.SESION_9));
+
+    private String id;
     private int aforo;
     private List<SesionDto> sesiones;
 
-    public SalaDto() {
-
+    SalaDto(int aforo, List<SesionDto> sesiones) {
+        this.id = name();
+        this.aforo = aforo;
+        this.sesiones = sesiones;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
