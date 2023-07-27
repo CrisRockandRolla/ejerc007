@@ -11,7 +11,7 @@ import java.util.List;
 import static es.cic.gestorentradas.dto.CineDto.CINE_1;
 
 @Service
-public class CineServiceImpl implements ICineServices {
+public class CineServiceImpl implements ICineService {
 
 
     @Override
@@ -28,7 +28,7 @@ public class CineServiceImpl implements ICineServices {
             for (SesionDto sesionDto : sesiones) {
                 List<VentaDto> ventas = sesionDto.getVentas();
                 for (VentaDto ventaDto : ventas) {
-                    recaudacion += ventaDto.getTotal();
+                    recaudacion += ventaDto.getTotalPagar();
                 }
             }
         }
@@ -40,7 +40,7 @@ public class CineServiceImpl implements ICineServices {
         int recaudacion = 0;
         for (SesionDto sesionDto : sala.getSesiones()) {
             for (VentaDto ventaDto : sesionDto.getVentas()) {
-                recaudacion += ventaDto.getTotal();
+                recaudacion += ventaDto.getTotalPagar();
             }
         }
         return recaudacion;
@@ -49,7 +49,7 @@ public class CineServiceImpl implements ICineServices {
     public int recaudacion(List<VentaDto> ventas) {
         int recaudacion = 0;
         for (VentaDto ventaDto : ventas) {
-            recaudacion += ventaDto.getTotal() - ventaDto.getDescuento();
+            recaudacion += ventaDto.getTotalPagar() - ventaDto.getDescuento();
         }
         return recaudacion;
     }

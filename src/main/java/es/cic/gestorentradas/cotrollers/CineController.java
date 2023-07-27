@@ -18,6 +18,4 @@ public class CineController {
     public ResponseEntity crearCine() {
         return ResponseEntity.ok(cineServiceImpl.crearCine());
     }
-
-
 }

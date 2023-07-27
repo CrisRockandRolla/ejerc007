@@ -4,16 +4,43 @@ public class VentaDto {
 
     private static final double PRECIO_ENTRADA = 5;
     private static final double DESCUENTO = 0.1;
-    private Long id;
-    private int numEntradas;
-    private Double total;
-    private double descuento;
 
-    public Long getId() {
+    private long id;
+    private int numEntradas;
+    private double totalPagar;
+    private double descuento;
+    private boolean cancelada;
+    private int numEntradasCanceladas;
+    private SesionDto sesionDto;
+
+
+    public double calcularTotalPagar() {
+        if (numEntradas >= 5) return numEntradas * PRECIO_ENTRADA * 1 - DESCUENTO;
+        else return numEntradas * PRECIO_ENTRADA;
+    }
+
+    public double calcularDescuento() {
+        if (numEntradas >= 5) return numEntradas * PRECIO_ENTRADA * DESCUENTO;
+        else return 0;
+    }
+
+    public boolean hayDisponibles() {
+        return numEntradas <= sesionDto.getEntradasDisponibles();
+    }
+
+    public boolean isCancelada() {
+        return numEntradasCanceladas == numEntradas;
+    }
+
+    public void setCancelada(boolean cancelada) {
+        this.cancelada = cancelada;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -25,12 +52,12 @@ public class VentaDto {
         this.numEntradas = numEntradas;
     }
 
-    public Double getTotal() {
-        return total;
+    public double getTotalPagar() {
+        return totalPagar;
     }
 
-    public void setTotal(Double total) {
-        this.total = total;
+    public void setTotalPagar(double totalPagar) {
+        this.totalPagar = totalPagar;
     }
 
     public double getDescuento() {
@@ -41,15 +68,20 @@ public class VentaDto {
         this.descuento = descuento;
     }
 
-    public double comprarEntradas() {
-
-        return numEntradas * PRECIO_ENTRADA;
+    public int getNumEntradasCanceladas() {
+        return numEntradasCanceladas;
     }
 
-    public double calcularDecuento() {
-        if (numEntradas >= 5) {
-            return numEntradas * PRECIO_ENTRADA * DESCUENTO;
-        }
-        return 0;
+    public void setNumEntradasCanceladas(int numEntradasCanceladas) {
+        this.numEntradasCanceladas = numEntradasCanceladas;
     }
+
+    public SesionDto getSesionDto() {
+        return sesionDto;
+    }
+
+    public void setSesionDto(SesionDto sesionDto) {
+        this.sesionDto = sesionDto;
+    }
+
 }

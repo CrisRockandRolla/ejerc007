@@ -1,6 +1,6 @@
 package es.cic.gestorentradas.service;
 
-public interface ICineServices {
+public interface ICineService {
 
     String crearCine();
 
