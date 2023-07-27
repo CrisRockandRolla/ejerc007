@@ -10,11 +10,11 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class CineServiceImp implements ICineServices {
+public class CineServiceImpl implements ICineServices {
     private final CineDto cineDto = new CineDto();
 
     @Override
-    public CineDto cargarCine() {
+    public CineDto crearCine() {
         SalaDto salaDto1 = new SalaDto();
         salaDto1.setId(1L);
         salaDto1.setAforo(100);
@@ -66,6 +66,7 @@ public class CineServiceImp implements ICineServices {
         }
         return recaudacion;
     }
+
 
     public int recaudacion(SalaDto sala) {
         int recaudacion = 0;

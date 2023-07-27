@@ -4,8 +4,9 @@ import es.cic.gestorentradas.dto.CineDto;
 
 public interface ICineServices {
 
-    CineDto cargarCine();
+    CineDto crearCine();
 
     int recaudacion();
+
 }
 
