@@ -1,5 +1,5 @@
 package es.cic.gestorentradas.cotrollers;
-
+//esto es una prueba
 import es.cic.gestorentradas.service.CineServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
