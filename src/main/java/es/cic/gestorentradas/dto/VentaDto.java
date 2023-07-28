@@ -12,10 +12,11 @@ public class VentaDto {
     private boolean cancelada;
     private int numEntradasCanceladas;
     private SesionDto sesionDto;
+    private SalaDto salaDto;
 
 
     public double calcularTotalPagar() {
-        if (numEntradas >= 5) return numEntradas * PRECIO_ENTRADA * 1 - DESCUENTO;
+        if (numEntradas >= 5) return numEntradas * PRECIO_ENTRADA * (1 - DESCUENTO);
         else return numEntradas * PRECIO_ENTRADA;
     }
 
@@ -82,6 +83,14 @@ public class VentaDto {
 
     public void setSesionDto(SesionDto sesionDto) {
         this.sesionDto = sesionDto;
+    }
+
+    public SalaDto getSalaDto() {
+        return salaDto;
+    }
+
+    public void setSalaDto(SalaDto salaDto) {
+        this.salaDto = salaDto;
     }
 
     @Override

@@ -6,6 +6,7 @@ import es.cic.gestorentradas.dto.VentaDto;
 public class AssemblerVenta {
 
     public static VentaDto assembleVenta(long id, int numEntradas, SesionDto sesionDto) {
+
         VentaDto ventaDto1 = new VentaDto();
         ventaDto1.setId(id);
         ventaDto1.setNumEntradas(numEntradas);

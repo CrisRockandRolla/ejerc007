@@ -1,6 +1,8 @@
 package es.cic.gestorentradas.cache;
 
 import es.cic.gestorentradas.dto.SalaDto;
+import es.cic.gestorentradas.dto.SesionDto;
+import es.cic.gestorentradas.dto.VentaDto;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,6 +17,18 @@ public class CineCache {
     public static void addCine() {
         mapaCine.put(CINE_1.getId(), Arrays.asList(SalaDto.SALA_1, SalaDto.SALA_2, SalaDto.SALA_3));
     }
+
+    public static void addVenta(VentaDto ventaDto) {
+        List<SalaDto> salasCine = getSalasCine(CINE_1.getId());
+        for (SalaDto sala : salasCine) {
+            for (SesionDto sesion : sala.getSesiones()) {
+                if (sesion.getId().equalsIgnoreCase(ventaDto.getSesionDto().getId())) {
+                    sesion.getVentas().add(ventaDto);
+                }
+            }
+        }
+    }
+
 
     public static List<SalaDto> getSalasCine(String cineId) {
         return mapaCine.get(cineId);
