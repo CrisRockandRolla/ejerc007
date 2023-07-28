@@ -11,6 +11,8 @@ public enum SalaDto {
 
     private String id;
     private int aforo;
+
+
     private List<SesionDto> sesiones;
 
     SalaDto(int aforo, List<SesionDto> sesiones) {

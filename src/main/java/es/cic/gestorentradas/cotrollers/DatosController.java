@@ -20,15 +20,15 @@ public class DatosController {
     @GetMapping
     @RequestMapping("/cine/{id}")
     public String get(@PathVariable("id") CineDto cineDto) {
-//        return datosService.get(cineDto);
-        return "Cine\n";
+        return datosService.get(cineDto);
+//        return "Cine\n";
     }
 
     @GetMapping
     @RequestMapping("/sala/{id}")
     public String get(@PathVariable("id") SalaDto salaDto) {
-//        return datosService.get(salaDto);
-        return "Sala\n";
+        return datosService.get(salaDto);
+//        return "Sala\n";
     }
 
     @GetMapping

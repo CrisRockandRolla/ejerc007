@@ -4,9 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum CineDto {
+
     CINE_1(Arrays.asList(SalaDto.SALA_1, SalaDto.SALA_2, SalaDto.SALA_3));
     private String id;
     private List<SalaDto> salas;
+
 
     CineDto(List<SalaDto> salas) {
         this.id = name();

@@ -1,5 +1,6 @@
 package es.cic.gestorentradas.service;
 
+import es.cic.gestorentradas.cache.CineCache;
 import es.cic.gestorentradas.dto.CineDto;
 import es.cic.gestorentradas.dto.SalaDto;
 import es.cic.gestorentradas.dto.SesionDto;
@@ -8,21 +9,26 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static es.cic.gestorentradas.dto.CineDto.CINE_1;
 
 @Service
 public class CineServiceImpl implements ICineService {
 
+//    @Override
+//    //FIXME arreglar esto. El enum es inmutable y no puedo cambiar los datos
+//    public void crearCine() {
+//        CineCache.addCine();
+//    }
 
     @Override
-    public String crearCine() {
-        return CINE_1.toString();
+    //FIXME arreglar esto. El enum es inmutable y no puedo cambiar los datos
+    public String verCine() {
+        return CineCache.miToString();
     }
 
     @Override
     public int recaudacion() {
         int recaudacion = 0;
-        List<SalaDto> salas = CINE_1.getSalas();
+        List<SalaDto> salas = CineDto.CINE_1.getSalas();
         for (SalaDto salaDto : salas) {
             List<SesionDto> sesiones = salaDto.getSesiones();
             for (SesionDto sesionDto : sesiones) {

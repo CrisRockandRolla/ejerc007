@@ -3,7 +3,7 @@ package es.cic.gestorentradas.cotrollers;
 import es.cic.gestorentradas.service.CineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,9 +13,9 @@ public class CineController {
     @Autowired
     private CineServiceImpl cineServiceImpl;
 
-    @PostMapping
+    @GetMapping
     @RequestMapping("/")
-    public ResponseEntity crearCine() {
-        return ResponseEntity.ok(cineServiceImpl.crearCine());
+    public ResponseEntity verCine() {
+        return ResponseEntity.ok(cineServiceImpl.verCine());
     }
 }

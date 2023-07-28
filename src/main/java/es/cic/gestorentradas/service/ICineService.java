@@ -2,7 +2,9 @@ package es.cic.gestorentradas.service;
 
 public interface ICineService {
 
-    String crearCine();
+//    void crearCine();
+
+    String verCine();
 
     int recaudacion();
 
