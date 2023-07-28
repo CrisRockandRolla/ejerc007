@@ -5,7 +5,8 @@ import es.cic.gestorentradas.dto.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
+
+import static es.cic.gestorentradas.dto.CineDto.CINE_1;
 
 @Service
 public class DatosService {
@@ -14,8 +15,8 @@ public class DatosService {
     public String get(CineDto cineDto) {
 
         DatosCache datosDto = new DatosCache();
-        Map<String, List<SalaDto>> cine = CineCache.getMapaCine();
-        List<SalaDto> salas = cine.get(cineDto.getId());
+
+        List<SalaDto> salas = CineCache.getSalasCine(CINE_1.getId());
 
         int entradasVendidas = datosDto.getNumEntradasVendidas();
         int aforo = 0;
@@ -38,9 +39,6 @@ public class DatosService {
         datosDto.setNumEntradasVendidas(entradasVendidas);
         datosDto.setTotalRecaudado(totalRecaudado);
         datosDto.setTotalDescuentos(totalDescuentos);
-        System.out.println(aforo);
-        System.out.println(entradasVendidas);
-        System.out.println(aforo - entradasVendidas);
         datosDto.setNumEntradasNoVendidas(aforo - entradasVendidas);
 
         return datosDto.toString();
@@ -49,7 +47,8 @@ public class DatosService {
     public String get(SalaDto salaDto) {
 
         DatosCache datosDto = new DatosCache();
-        List<SalaDto> salas = CineCache.getSalas();
+        List<SalaDto> salas = CineCache.getMapaCine().get(CINE_1.getId());
+
         int entradasVendidas = datosDto.getNumEntradasVendidas();
         int aforo = 0;
         double totalRecaudado = datosDto.getTotalRecaudado();
@@ -80,7 +79,7 @@ public class DatosService {
     public String get(SesionDto sesionDto) {
 
         DatosCache datosDto = new DatosCache();
-        List<SalaDto> salas = CineCache.getSalas();
+        List<SalaDto> salas = CineCache.getMapaCine().get(CINE_1.getId());
         int entradasVendidas = datosDto.getNumEntradasVendidas();
         int aforo = 0;
         double totalRecaudado = datosDto.getTotalRecaudado();

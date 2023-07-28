@@ -12,11 +12,8 @@ import static es.cic.gestorentradas.dto.CineDto.CINE_1;
 public class CineCache {
     private static Map<String, List<SalaDto>> mapaCine = new HashMap<>();
 
-    private static List<SalaDto> salas = Arrays.asList(SalaDto.SALA_1, SalaDto.SALA_2, SalaDto.SALA_3);
-
-
     public static void addCine() {
-        mapaCine.put(CINE_1.getId(), salas);
+        mapaCine.put(CINE_1.getId(), Arrays.asList(SalaDto.SALA_1, SalaDto.SALA_2, SalaDto.SALA_3));
     }
 
     public static List<SalaDto> getSalasCine(String cineId) {
@@ -31,18 +28,9 @@ public class CineCache {
         CineCache.mapaCine = mapaCine;
     }
 
-    public static List<SalaDto> getSalas() {
-        return salas;
-    }
-
-    public static void setSalas(List<SalaDto> salas) {
-        CineCache.salas = salas;
-    }
-
     public static String miToString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append(CINE_1.getId()).append("\n");
-        salas.forEach(sala -> {
+        mapaCine.get(CINE_1.getId()).forEach(sala -> {
             sb.append("\t").append(sala.getId()).append("\n");
             sala.getSesiones().forEach(sesion -> {
                 sb.append("\t\t").append(sesion.getId())
@@ -52,6 +40,7 @@ public class CineCache {
                         .append("\n");
             });
         });
+
         return sb.toString();
     }
 }

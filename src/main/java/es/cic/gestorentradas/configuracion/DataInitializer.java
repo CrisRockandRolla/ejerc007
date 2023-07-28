@@ -8,13 +8,9 @@ import javax.annotation.PostConstruct;
 @Configuration
 public class DataInitializer {
 
-
     @PostConstruct
     public void initializeData() {
-        // Crea y guarda los cines, salas y sesiones en memoria
+        //Guardo los cines, salas y sesiones en memoria
         CineCache.addCine();
-
-//        ResponseEntity.ok(cineServiceImpl.crearCine());
-
     }
 }

@@ -84,4 +84,16 @@ public class VentaDto {
         this.sesionDto = sesionDto;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Venta Nº ");
+        sb.append(id).append("\t").append(sesionDto)/*.append("\t").append(sesionDto.getSalaDto().getId())*/;
+        sb.append("\n\tnumEntradas=").append(numEntradas);
+        sb.append("\ttotalPagar=").append(totalPagar);
+        sb.append(", descuento=").append(descuento);
+        sb.append("\n\tcancelada=").append(cancelada);
+        sb.append("\tnumEntradasCanceladas=").append(numEntradasCanceladas).append("\n");
+
+        return sb.toString();
+    }
 }

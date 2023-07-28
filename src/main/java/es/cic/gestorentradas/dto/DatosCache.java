@@ -2,7 +2,6 @@ package es.cic.gestorentradas.dto;
 
 public class DatosCache {
 
-
     private int numEntradasVendidas;
     private double totalRecaudado;
     private double totalDescuentos;
@@ -11,13 +10,6 @@ public class DatosCache {
     private String pelicula;
     private String idSala;
 
-//    public CineDto getCine() {
-//        return cine;
-//    }
-//
-//    public void setCine(CineDto cine) {
-//        this.cine = cine;
-//    }
 
     public int getNumEntradasVendidas() {
         return numEntradasVendidas;
