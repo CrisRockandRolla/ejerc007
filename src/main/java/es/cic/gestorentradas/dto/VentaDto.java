@@ -12,7 +12,6 @@ public class VentaDto {
     private boolean cancelada;
     private int numEntradasCanceladas;
     private SesionDto sesionDto;
-    private SalaDto salaDto;
 
 
     public double calcularTotalPagar() {
@@ -85,13 +84,6 @@ public class VentaDto {
         this.sesionDto = sesionDto;
     }
 
-    public SalaDto getSalaDto() {
-        return salaDto;
-    }
-
-    public void setSalaDto(SalaDto salaDto) {
-        this.salaDto = salaDto;
-    }
 
     @Override
     public String toString() {
