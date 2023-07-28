@@ -44,4 +44,12 @@ public enum SalaDto {
     public void setSesiones(List<SesionDto> sesiones) {
         this.sesiones = sesiones;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append(id).append('\t');
+        sb.append("\taforo=").append(aforo);
+        return sb.toString();
+    }
 }

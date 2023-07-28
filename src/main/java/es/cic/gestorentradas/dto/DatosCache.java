@@ -69,8 +69,8 @@ public class DatosCache {
 
     @Override
     public String toString() {
-        return "Sala: " + idSala + "\t" + "Aforo: " + numEntradasVendidas + numEntradasNoVendidas + "\t" +
-                "Película: " + pelicula + "\n" +
+        return /*"Sala: " + idSala + "\t" + */"Aforo total: " + (numEntradasVendidas + numEntradasNoVendidas) + "\t" +
+//                "Película: " + pelicula + "\n" +
                 "Numero de entradas vendidas: " + numEntradasVendidas + "\n" +
                 "Recaudacion Total: " + totalRecaudado + "\n" +
                 "Ocupacion: " + numEntradasVendidas * 100 / (numEntradasVendidas + numEntradasNoVendidas) + "%\n" +

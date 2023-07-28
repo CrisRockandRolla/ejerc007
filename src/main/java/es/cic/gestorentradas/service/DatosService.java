@@ -31,7 +31,7 @@ public class DatosService {
                 for (VentaDto venta : sesion.getVentas()) {
                     entradasVendidas += venta.getNumEntradas();
                     totalRecaudado += venta.getTotalPagar();
-                    totalDescuentos += venta.getTotalPagar();
+                    totalDescuentos += venta.getDescuento();
                 }
             }
         }
@@ -62,7 +62,7 @@ public class DatosService {
                     for (VentaDto venta : sesion.getVentas()) {
                         entradasVendidas += venta.getNumEntradas();
                         totalRecaudado += venta.getTotalPagar();
-                        totalDescuentos += venta.getTotalPagar();
+                        totalDescuentos += venta.getDescuento();
                     }
                 }
             }
@@ -93,7 +93,7 @@ public class DatosService {
                     for (VentaDto venta : sesion.getVentas()) {
                         entradasVendidas += venta.getNumEntradas();
                         totalRecaudado += venta.getTotalPagar();
-                        totalDescuentos += venta.getTotalPagar();
+                        totalDescuentos += venta.getDescuento();
                     }
                     aforo = sala.getAforo();
                     break fuera;
