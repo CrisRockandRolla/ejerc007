@@ -1,21 +1,29 @@
 package es.cic.gestorentradas.cotrollers;
 
-import es.cic.gestorentradas.service.CineServiceImpl;
+import es.cic.gestorentradas.gestion.CineDatos;
+import es.cic.gestorentradas.service.CineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-//@RequestMapping("/")
+@RequestMapping("/")
 public class CineController {
     @Autowired
-    private CineServiceImpl cineServiceImpl;
+    private CineService cineService;
 
     @GetMapping
     @RequestMapping("/")
-    public ResponseEntity verCine() {
-        return ResponseEntity.ok(cineServiceImpl.verCine());
+    public String index() {
+        return "Bienvenido a cines-CIC";
+    }
+
+    @GetMapping
+    @RequestMapping("/cine/{id}")
+    public ResponseEntity verCine(@PathVariable("id") CineDatos cineDto) {
+        return ResponseEntity.ok(cineService.verCine(cineDto));
     }
 }

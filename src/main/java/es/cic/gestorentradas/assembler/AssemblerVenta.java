@@ -1,20 +1,19 @@
 package es.cic.gestorentradas.assembler;
 
-import es.cic.gestorentradas.dto.SesionDto;
-import es.cic.gestorentradas.dto.VentaDto;
+import es.cic.gestorentradas.gestion.SesionDatos;
+import es.cic.gestorentradas.gestion.VentaDatos;
 
 public class AssemblerVenta {
 
-    public static VentaDto assembleVenta(long id, int numEntradas, SesionDto sesionDto) {
+    public static VentaDatos assembleVenta(int numEntradas, SesionDatos sesionDatos) {
 
-        VentaDto ventaDto1 = new VentaDto();
-        ventaDto1.setId(id);
-        ventaDto1.setNumEntradas(numEntradas);
-        ventaDto1.setTotalPagar(ventaDto1.calcularTotalPagar());
-        ventaDto1.setCancelada(false);
-        ventaDto1.setDescuento(ventaDto1.calcularDescuento());
-        ventaDto1.setNumEntradasCanceladas(0);
-        ventaDto1.setSesionDto(sesionDto);
-        return ventaDto1;
+        VentaDatos ventaDatos1 = new VentaDatos();
+        ventaDatos1.setNumEntradas(numEntradas);
+        ventaDatos1.setTotalPagar(ventaDatos1.calcularTotalPagar());
+        ventaDatos1.setCancelada(false);
+        ventaDatos1.setDescuento(ventaDatos1.calcularDescuento());
+        ventaDatos1.setNumEntradasCanceladas(0);
+        ventaDatos1.setSesionDto(sesionDatos);
+        return ventaDatos1;
     }
 }

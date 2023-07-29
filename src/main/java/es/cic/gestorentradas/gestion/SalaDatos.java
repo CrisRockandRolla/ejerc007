@@ -1,21 +1,21 @@
-package es.cic.gestorentradas.dto;
+package es.cic.gestorentradas.gestion;
 
 import java.util.Arrays;
 import java.util.List;
 
-public enum SalaDto {
+public enum SalaDatos {
 
-    SALA_1(100, Arrays.asList(SesionDto.SESION_1, SesionDto.SESION_2, SesionDto.SESION_3)),
-    SALA_2(50, Arrays.asList(SesionDto.SESION_4, SesionDto.SESION_5, SesionDto.SESION_6)),
-    SALA_3(20, Arrays.asList(SesionDto.SESION_7, SesionDto.SESION_8, SesionDto.SESION_9));
+    SALA_1(100, Arrays.asList(SesionDatos.SESION_1, SesionDatos.SESION_2, SesionDatos.SESION_3)),
+    SALA_2(50, Arrays.asList(SesionDatos.SESION_4, SesionDatos.SESION_5, SesionDatos.SESION_6)),
+    SALA_3(20, Arrays.asList(SesionDatos.SESION_7, SesionDatos.SESION_8, SesionDatos.SESION_9));
 
     private String id;
     private int aforo;
 
 
-    private List<SesionDto> sesiones;
+    private List<SesionDatos> sesiones;
 
-    SalaDto(int aforo, List<SesionDto> sesiones) {
+    SalaDatos(int aforo, List<SesionDatos> sesiones) {
         this.id = name();
         this.aforo = aforo;
         this.sesiones = sesiones;
@@ -37,11 +37,11 @@ public enum SalaDto {
         this.aforo = aforo;
     }
 
-    public List<SesionDto> getSesiones() {
+    public List<SesionDatos> getSesiones() {
         return sesiones;
     }
 
-    public void setSesiones(List<SesionDto> sesiones) {
+    public void setSesiones(List<SesionDatos> sesiones) {
         this.sesiones = sesiones;
     }
 

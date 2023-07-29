@@ -1,7 +1,8 @@
-package es.cic.gestorentradas.dto;
+package es.cic.gestorentradas.gestion;
 
-public class VentaDto {
+public class VentaDatos {
 
+    private static long ultimoId = 0;
     private static final double PRECIO_ENTRADA = 5;
     private static final double DESCUENTO = 0.1;
 
@@ -11,8 +12,11 @@ public class VentaDto {
     private double descuento;
     private boolean cancelada;
     private int numEntradasCanceladas;
-    private SesionDto sesionDto;
+    private SesionDatos sesionDatos;
 
+    public VentaDatos() {
+        this.id = generarId();
+    }
 
     public double calcularTotalPagar() {
         if (numEntradas >= 5) return numEntradas * PRECIO_ENTRADA * (1 - DESCUENTO);
@@ -25,11 +29,11 @@ public class VentaDto {
     }
 
     public boolean hayDisponibles() {
-        return numEntradas <= sesionDto.getEntradasDisponibles();
+        return numEntradas <= sesionDatos.getEntradasDisponibles();
     }
 
     public boolean isCancelada() {
-        return numEntradasCanceladas == numEntradas;
+        return numEntradas == 0;
     }
 
     public void setCancelada(boolean cancelada) {
@@ -38,10 +42,6 @@ public class VentaDto {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public int getNumEntradas() {
@@ -76,19 +76,19 @@ public class VentaDto {
         this.numEntradasCanceladas = numEntradasCanceladas;
     }
 
-    public SesionDto getSesionDto() {
-        return sesionDto;
+    public SesionDatos getSesionDto() {
+        return sesionDatos;
     }
 
-    public void setSesionDto(SesionDto sesionDto) {
-        this.sesionDto = sesionDto;
+    public void setSesionDto(SesionDatos sesionDatos) {
+        this.sesionDatos = sesionDatos;
     }
 
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Venta Nº ");
-        sb.append(id).append("\t").append(sesionDto)/*.append("\t").append(sesionDto.getSalaDto().getId())*/;
+        sb.append(id).append("\t").append(sesionDatos)/*.append("\t").append(sesionDatos.getSalaDto().getId())*/;
         sb.append("\n\tEntradas ").append(numEntradas);
         sb.append("\tPrecio ").append(PRECIO_ENTRADA);
         sb.append("\ttotal ").append(numEntradas * PRECIO_ENTRADA);
@@ -98,5 +98,9 @@ public class VentaDto {
         sb.append("\t\tEntradas Canceladas ").append(numEntradasCanceladas).append("\n");
 
         return sb.toString();
+    }
+
+    private static synchronized long generarId() {
+        return ++ultimoId;
     }
 }

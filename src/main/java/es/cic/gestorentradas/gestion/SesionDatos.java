@@ -1,38 +1,38 @@
-package es.cic.gestorentradas.dto;
+package es.cic.gestorentradas.gestion;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static es.cic.gestorentradas.dto.SalaDto.*;
+import static es.cic.gestorentradas.gestion.SalaDatos.*;
 
-public enum SesionDto {
+public enum SesionDatos {
 
-    SESION_1("17:00", "Film1", 0, 100, new ArrayList<>(), SALA_1),
-    SESION_2("20:00", "Film1", 0, 100, new ArrayList<>(), SALA_1),
-    SESION_3("22:30", "Film2", 0, 100, new ArrayList<>(), SALA_1),
-    SESION_4("17:00", "Film3", 0, 50, new ArrayList<>(), SALA_2),
-    SESION_5("20:00", "Film2", 0, 50, new ArrayList<>(), SALA_2),
-    SESION_6("22:30", "Film4", 0, 50, new ArrayList<>(), SALA_2),
-    SESION_7("17:00", "Film5", 0, 20, new ArrayList<>(), SALA_3),
-    SESION_8("20:00", "Film3", 0, 20, new ArrayList<>(), SALA_3),
-    SESION_9("22:30", "Film5", 0, 20, new ArrayList<>(), SALA_3);
+    SESION_1("17:00", "Film1", 100, new ArrayList<>(), SALA_1),
+    SESION_2("20:00", "Film1", 100, new ArrayList<>(), SALA_1),
+    SESION_3("22:30", "Film2", 100, new ArrayList<>(), SALA_1),
+    SESION_4("17:00", "Film3", 50, new ArrayList<>(), SALA_2),
+    SESION_5("20:00", "Film2", 50, new ArrayList<>(), SALA_2),
+    SESION_6("22:30", "Film4", 50, new ArrayList<>(), SALA_2),
+    SESION_7("17:00", "Film5", 20, new ArrayList<>(), SALA_3),
+    SESION_8("20:00", "Film3", 20, new ArrayList<>(), SALA_3),
+    SESION_9("22:30", "Film5", 20, new ArrayList<>(), SALA_3);
 
     private String id;
     private String hora;
     private String pelicula;
     private int entradasVendidas;
     private int entradasDisponibles;
-    private List<VentaDto> ventas;
-    private SalaDto salaDto;
+    private List<VentaDatos> ventas;
+    private SalaDatos salaDatos;
 
-    SesionDto(String hora, String pelicula, int entradasVendidas, int entradasDisponibles, List<VentaDto> ventas, SalaDto salaDto) {
+    SesionDatos(String hora, String pelicula, int entradasDisponibles, List<VentaDatos> ventas, SalaDatos salaDatos) {
         this.id = name();
         this.hora = hora;
         this.pelicula = pelicula;
-        this.entradasVendidas = entradasVendidas;
+        this.entradasVendidas = 0;
         this.entradasDisponibles = entradasDisponibles;
         this.ventas = ventas;
-        this.salaDto = salaDto;
+        this.salaDatos = salaDatos;
     }
 
     public String getId() {
@@ -75,20 +75,20 @@ public enum SesionDto {
         this.entradasVendidas = entradasVendidas;
     }
 
-    public List<VentaDto> getVentas() {
+    public List<VentaDatos> getVentas() {
         return ventas;
     }
 
-    public void setVentas(List<VentaDto> ventas) {
+    public void setVentas(List<VentaDatos> ventas) {
         this.ventas = ventas;
     }
 
-    public SalaDto getSalaDto() {
-        return salaDto;
+    public SalaDatos getSalaDto() {
+        return salaDatos;
     }
 
-    public void setSalaDto(SalaDto salaDto) {
-        this.salaDto = salaDto;
+    public void setSalaDto(SalaDatos salaDatos) {
+        this.salaDatos = salaDatos;
     }
 
 }
