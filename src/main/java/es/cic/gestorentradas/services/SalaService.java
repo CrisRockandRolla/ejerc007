@@ -1,4 +1,4 @@
-package es.cic.gestorentradas.service;
+package es.cic.gestorentradas.services;
 
 import es.cic.gestorentradas.gestion.GestorVentasCines;
 import es.cic.gestorentradas.gestion.SalaDatos;

@@ -1,7 +1,7 @@
 package es.cic.gestorentradas.cotrollers;
 
 import es.cic.gestorentradas.gestion.CineDatos;
-import es.cic.gestorentradas.service.CineService;
+import es.cic.gestorentradas.services.CineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

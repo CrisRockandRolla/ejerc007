@@ -1,7 +1,7 @@
 package es.cic.gestorentradas.cotrollers;
 
 import es.cic.gestorentradas.gestion.SalaDatos;
-import es.cic.gestorentradas.service.SalaService;
+import es.cic.gestorentradas.services.SalaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

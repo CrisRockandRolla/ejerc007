@@ -4,7 +4,7 @@ import es.cic.gestorentradas.excepciones.VentaException;
 import es.cic.gestorentradas.gestion.GestorVentasCines;
 import es.cic.gestorentradas.gestion.SesionDatos;
 import es.cic.gestorentradas.gestion.VentaDatos;
-import es.cic.gestorentradas.service.VentaService;
+import es.cic.gestorentradas.services.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

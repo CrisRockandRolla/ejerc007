@@ -1,4 +1,4 @@
-package es.cic.gestorentradas.service;
+package es.cic.gestorentradas.services;
 
 import es.cic.gestorentradas.assembler.AssemblerVenta;
 import es.cic.gestorentradas.excepciones.VentaException;

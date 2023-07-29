@@ -1,7 +1,7 @@
 package es.cic.gestorentradas.cotrollers;
 
 import es.cic.gestorentradas.gestion.SesionDatos;
-import es.cic.gestorentradas.service.SesionService;
+import es.cic.gestorentradas.services.SesionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
