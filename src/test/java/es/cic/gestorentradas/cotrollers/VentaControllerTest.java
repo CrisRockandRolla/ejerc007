@@ -30,6 +30,8 @@ class VentaControllerTest {
     void clean() {
         GestorVentasCines.removeVentaPorId("VENTA_1");
         VentaDatos.setUltimoId(0);
+        SESION_2.setEntradasDisponibles(100);
+        SESION_7.setEntradasDisponibles(20);
     }
 
     @Test
@@ -43,7 +45,6 @@ class VentaControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(respuesta));
     }
-
 
     @Test
     void crear_EntradasNegativo() throws Exception {
@@ -140,21 +141,20 @@ class VentaControllerTest {
                 .andExpect(content().string(respuesta));
     }
 
-    //FIXME NO FUNCIONA SALE 200...PARECE QUE NO SE ESTA VERIFICANDO BIEN
-//    @Test
-//    void modificarVenta_Sesion_EntradasInsuficientes() throws Exception {
-//        VentaDatos ventaDatos = new VentaDatos();
-//        ventaDatos.setNumEntradas(50);
-//        ventaDatos.setTotalPagar(ventaDatos.calcularTotalPagar());
-//        ventaDatos.setDescuento(ventaDatos.calcularDescuento());
-//        ventaDatos.setSesionDto(SESION_3);
-//        GestorVentasCines.addVenta(ventaDatos, CINE_1.getId());
-//
-//
-//        moc.perform(MockMvcRequestBuilders.patch("/update/venta/{id}/_{sesion}", ventaDatos.getId(), SESION_7))
-//                .andExpect(status().is5xxServerError())
-//                .andExpect(content().string("No hay suficientes entradas. Quiere 50 pero hay 20\n"));
-//    }
+    @Test
+    void modificarVenta_Sesion_EntradasInsuficientes() throws Exception {
+        VentaDatos ventaDatos = new VentaDatos();
+        ventaDatos.setNumEntradas(50);
+        ventaDatos.setTotalPagar(ventaDatos.calcularTotalPagar());
+        ventaDatos.setDescuento(ventaDatos.calcularDescuento());
+        ventaDatos.setSesionDto(SESION_3);
+        GestorVentasCines.addVenta(ventaDatos, CINE_1.getId());
+
+
+        moc.perform(MockMvcRequestBuilders.patch("/update/venta/{id}/_{sesion}", ventaDatos.getId(), SESION_7))
+                .andExpect(status().is5xxServerError())
+                .andExpect(content().string("No hay suficientes entradas para la nueva sesion. Quiere 50 pero para la sesion SESION_7 solo hay 20\n"));
+    }
 
     @Test
     void modificarVenta_SesionNoExiste() throws Exception {
@@ -187,6 +187,21 @@ class VentaControllerTest {
         moc.perform(MockMvcRequestBuilders.patch("/update/venta/{id}/{entradasCancelar}/{sesion}", ventaDatos.getId(), 2, SESION_7))
                 .andExpect(status().isOk())
                 .andExpect(content().string(respuesta));
+    }
+
+    @Test
+    void modificarVenta_EntradasSesion_EntradasInsuficientes() throws Exception {
+        VentaDatos ventaDatos = new VentaDatos();
+        ventaDatos.setNumEntradas(50);
+        ventaDatos.setTotalPagar(ventaDatos.calcularTotalPagar());
+        ventaDatos.setDescuento(ventaDatos.calcularDescuento());
+        ventaDatos.setSesionDto(SESION_3);
+        GestorVentasCines.addVenta(ventaDatos, CINE_1.getId());
+
+
+        moc.perform(MockMvcRequestBuilders.patch("/update/venta/{id}/{entradasCancelar}/{sesion}", ventaDatos.getId(), 2, SESION_7))
+                .andExpect(status().is5xxServerError())
+                .andExpect(content().string("No hay suficientes entradas para la nueva sesion. Quiere 48 pero para la sesion SESION_7 solo hay 20\n"));
     }
 
     @Test

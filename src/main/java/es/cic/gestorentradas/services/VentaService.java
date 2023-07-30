@@ -45,9 +45,14 @@ public class VentaService {
 
     public VentaDatos modificarVenta(String idVenta, SesionDatos session) {
         VentaDatos ventaToModificar = GestorVentasCines.buscarVenta(idVenta);
+        int entradasNuevaSesion = ventaToModificar.getNumEntradas();
+        if (entradasNuevaSesion > session.getEntradasDisponibles())
+            throw new VentaException("No hay suficientes entradas para la nueva sesion. Quiere " + entradasNuevaSesion + " pero para la sesion " + session.getId() + " solo hay " + session.getEntradasDisponibles() + "\n");
+
         ventaToModificar.getSesionDto().setEntradasDisponibles(ventaToModificar.getSesionDto().getEntradasDisponibles() + ventaToModificar.getNumEntradas());
         ventaToModificar.setSesionDto(session);
         ventaToModificar.getSesionDto().setEntradasDisponibles(ventaToModificar.getSesionDto().getEntradasDisponibles() - ventaToModificar.getNumEntradas());
+
 
         return ventaToModificar;
     }
