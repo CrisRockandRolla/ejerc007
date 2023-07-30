@@ -23,7 +23,7 @@ public class CineController {
 
     @GetMapping
     @RequestMapping("/cine/{id}")
-    public ResponseEntity verCine(@PathVariable("id") CineDatos cineDto) {
+    public ResponseEntity<String> verCine(@PathVariable("id") CineDatos cineDto) {
         return ResponseEntity.ok(cineService.verCine(cineDto));
     }
 }

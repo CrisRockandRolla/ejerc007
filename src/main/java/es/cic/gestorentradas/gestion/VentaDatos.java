@@ -6,16 +6,14 @@ public class VentaDatos {
     private static final double PRECIO_ENTRADA = 5;
     private static final double DESCUENTO = 0.1;
 
-    private long id;
-    private int numEntradas;
-    private double totalPagar;
-    private double descuento;
+    private final String id;
+    private int numEntradas, numEntradasCanceladas;
+    private double totalPagar, descuento;
     private boolean cancelada;
-    private int numEntradasCanceladas;
     private SesionDatos sesionDatos;
 
     public VentaDatos() {
-        this.id = generarId();
+        this.id = "VENTA_" + generarId();
     }
 
     public double calcularTotalPagar() {
@@ -28,10 +26,6 @@ public class VentaDatos {
         else return 0;
     }
 
-    public boolean hayDisponibles() {
-        return numEntradas <= sesionDatos.getEntradasDisponibles();
-    }
-
     public boolean isCancelada() {
         return numEntradas == 0;
     }
@@ -40,7 +34,7 @@ public class VentaDatos {
         this.cancelada = cancelada;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
@@ -87,20 +81,33 @@ public class VentaDatos {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Venta Nº ");
-        sb.append(id).append("\t").append(sesionDatos)/*.append("\t").append(sesionDatos.getSalaDto().getId())*/;
-        sb.append("\n\tEntradas ").append(numEntradas);
-        sb.append("\tPrecio ").append(PRECIO_ENTRADA);
-        sb.append("\ttotal ").append(numEntradas * PRECIO_ENTRADA);
-        sb.append("\tDescuento ").append(descuento);
-        sb.append("\ttotalPagar ").append(totalPagar);
-        sb.append("\n\tVenta cancelada ").append(cancelada);
-        sb.append("\t\tEntradas Canceladas ").append(numEntradasCanceladas).append("\n");
-
-        return sb.toString();
+        return "Venta Nº " + id + "\t" + sesionDatos +/*.append("\t").append(sesionDatos.getSalaDto().getId())*/
+                "\n\tEntradas " + numEntradas +
+                "\tPrecio " + PRECIO_ENTRADA +
+                "\ttotal " + numEntradas * PRECIO_ENTRADA +
+                "\tDescuento " + descuento +
+                "\ttotalPagar " + totalPagar +
+                "\n\tVenta cancelada " + cancelada +
+                "\t\tEntradas Canceladas " + numEntradasCanceladas + "\n";
     }
 
     private static synchronized long generarId() {
         return ++ultimoId;
+    }
+
+    public static long getUltimoId() {
+        return ultimoId;
+    }
+
+    public static void setUltimoId(long ultimoId) {
+        VentaDatos.ultimoId = ultimoId;
+    }
+
+    public SesionDatos getSesionDatos() {
+        return sesionDatos;
+    }
+
+    public void setSesionDatos(SesionDatos sesionDatos) {
+        this.sesionDatos = sesionDatos;
     }
 }

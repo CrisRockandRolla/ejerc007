@@ -17,7 +17,7 @@ public class SesionController {
 
     @GetMapping
     @RequestMapping("/sesion/{id}")
-    public ResponseEntity verSesion(@PathVariable("id") SesionDatos sesion) {
+    public ResponseEntity<String> verSesion(@PathVariable("id") SesionDatos sesion) {
         return ResponseEntity.ok(sesionService.verSesion(sesion));
     }
 }

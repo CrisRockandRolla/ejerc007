@@ -13,23 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class EstadisticasController {
 
     @Autowired
-    private EstadisticasService datosService;
+    private EstadisticasService estadisticasService;
 
     @GetMapping
     @RequestMapping("/{id}")
     public String get(@PathVariable("id") CineDatos cineDto) {
-        return datosService.getEstadisticas(cineDto);
+        return estadisticasService.getEstadisticas(cineDto);
     }
-
-//    @GetMapping
-//    @RequestMapping("/sala/{id}")
-//    public String get(@PathVariable("id") SalaDatos salaDto) {
-//        return datosService.get(salaDto);
-//    }
-//
-//    @GetMapping
-//    @RequestMapping("/sesion/{id}")
-//    public String get(@PathVariable("id") SesionDatos sesionDto) {
-//        return sesionDto.getId() + "\t" + datosService.get(sesionDto);
-//    }
 }

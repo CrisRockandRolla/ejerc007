@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 public class CineService {
 
     public String verCine(CineDatos cine) {
-        return GestorVentasCines.mostrarCine(cine);
+        return GestorVentasCines.mostrar(cine);
     }
 }
