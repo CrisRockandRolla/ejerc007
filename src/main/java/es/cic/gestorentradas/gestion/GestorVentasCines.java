@@ -37,11 +37,6 @@ public class GestorVentasCines {
     }
 
     public static void addVenta(VentaDatos venta, String idCine) {
-//        getSalasCine(idCine).stream()
-//                .flatMap(sala -> sala.getSesiones().stream())
-//                .filter(sesion -> sesion.getId().equalsIgnoreCase(venta.getSesionDto().getId()))
-//                .findFirst()
-//                .ifPresent(sesion -> sesion.getVentas().add(venta));
         boolean ventaIdExiste = getSalasCine(idCine).stream()
                 .flatMap(sala -> sala.getSesiones().stream())
                 .anyMatch(sesion -> sesion.getId().equalsIgnoreCase(venta.getSesionDto().getId())
@@ -143,105 +138,4 @@ public class GestorVentasCines {
         });
         return entradasDisponibles[0];
     }
-
-
-    /*
-     * PARA ESTADÍSTICAS
-     */
-//    public static String mostrarEstadisticasCine(CineDatos cine) {
-//        final StringBuilder sb = new StringBuilder("<pre>" + cine.getId() + "\t");
-//        sb.append(datosCineMostrar(cine)).append("\n");
-//        getSalasCine(cine.getId()).forEach(sala -> {
-//            sb.append("\t").append(sala.getId()).append("\t")
-//                    .append(datosSalaMostrar(sala.getId()));
-//            sb.append("\n");
-//            sala.getSesiones().forEach(sesion -> {
-//                sb.append("\t\t").append(sesion.getId())
-//                        .append(": ").append(sesion.getHora())
-//                        .append(", ").append(sesion.getPelicula())
-//                        .append("\t").append(datosSesionMostrar(sesion.getId()))
-//                        .append("\n\t\t\t Entradas disponibles: ").append(sesion.getEntradasDisponibles())
-//                        .append("\n");
-//            });
-//        });
-//        sb.append("</pre>");
-//        return sb.toString();
-//    }
-
-//    public static Map<String, Number> datosCineMostrar(CineDatos cine) {
-//        int aforo = 0, entradasVendidas = 0;
-//        double totalRecaudado = 0, totalDescuentos = 0, ocupacion = 0;
-//        for (SalaDatos sala : getSalasCine(cine.getId())) {
-//
-//            for (SesionDatos sesion : sala.getSesiones()) {
-//                aforo += sala.getAforo();
-//                for (VentaDatos venta : sesion.getVentas()) {
-//                    entradasVendidas += venta.getNumEntradas();
-//                    totalRecaudado += venta.getTotalPagar();
-//                    totalDescuentos += venta.getDescuento();
-//                }
-//            }
-//        }
-//        ocupacion = (double) entradasVendidas * 100 / aforo;
-//
-//        //        Map.of("Aforo total", aforo, "Entradas vendidas", entradasVendidas, "Total Recaudado", totalRecaudado,
-////                "Ocupacion", ocupacion, "Total descuentos", totalDescuentos);
-//        return getEstadisticasCineMap(aforo, entradasVendidas, totalRecaudado, totalDescuentos, ocupacion);
-//    }
-
-    //
-//    public static Map<String, Number> datosSalaMostrar(String idSala) {
-//        int aforo = 0, entradasVendidas = 0;
-//        double totalRecaudado = 0, totalDescuentos = 0, ocupacion = 0;
-//        for (SalaDatos sala : getSalasCine(CINE_1.getId())) {
-//            if (!sala.getId().equalsIgnoreCase(idSala)) continue;
-//            for (SesionDatos sesion : sala.getSesiones()) {
-//                aforo += sala.getAforo();
-//                for (VentaDatos venta : sesion.getVentas()) {
-//                    entradasVendidas += venta.getNumEntradas();
-//                    totalRecaudado += venta.getTotalPagar();
-//                    totalDescuentos += venta.getDescuento();
-//                }
-//            }
-//        }
-//        ocupacion = (double) entradasVendidas * 100 / aforo;
-//
-//        //        Map.of("Aforo total", aforo, "Entradas vendidas", entradasVendidas, "Total Recaudado", totalRecaudado,
-////                "Ocupacion", ocupacion, "Total descuentos", totalDescuentos);
-//        return getEstadisticasCineMap(aforo, entradasVendidas, totalRecaudado, totalDescuentos, ocupacion);
-//    }
-//
-//    //
-//    public static Map<String, Number> datosSesionMostrar(String idSesion) {
-//        int aforo = 0, entradasVendidas = 0;
-//        double totalRecaudado = 0, totalDescuentos = 0, ocupacion = 0;
-//        for (SalaDatos sala : getSalasCine(CINE_1.getId())) {
-//            for (SesionDatos sesion : sala.getSesiones()) {
-//                if (!sesion.getId().equalsIgnoreCase(idSesion)) continue;
-//                aforo += sala.getAforo();
-//                for (VentaDatos venta : sesion.getVentas()) {
-//                    entradasVendidas += venta.getNumEntradas();
-//                    totalRecaudado += venta.getTotalPagar();
-//                    totalDescuentos += venta.getDescuento();
-//                }
-//            }
-//        }
-//        ocupacion = (double) entradasVendidas * 100 / aforo;
-//
-//
-//        //        Map.of("Aforo total", aforo, "Entradas vendidas", entradasVendidas, "Total Recaudado", totalRecaudado,
-//        //        "Ocupacion", ocupacion, "Total descuentos", totalDescuentos);
-//        return getEstadisticasCineMap(aforo, entradasVendidas, totalRecaudado, totalDescuentos, ocupacion);
-//    }
-
-
-//    private static Map<String, Number> getEstadisticasCineMap(int aforo, int entradasVendidas, double totalRecaudado, double totalDescuentos, double ocupacion) {
-//        Map<String, Number> datosCineMap = new HashMap<>();
-//        datosCineMap.put("Aforo total", aforo);
-//        datosCineMap.put("Entradas vendidas", entradasVendidas);
-//        datosCineMap.put("Total Recaudado", totalRecaudado);
-//        datosCineMap.put("Ocupacion", ocupacion);
-//        datosCineMap.put("Total descuentos", totalDescuentos);
-//        return datosCineMap;
-//    }
 }
