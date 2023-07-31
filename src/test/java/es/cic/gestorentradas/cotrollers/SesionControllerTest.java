@@ -1,9 +1,6 @@
 package es.cic.gestorentradas.cotrollers;
 
-import es.cic.gestorentradas.gestion.GestorVentasCines;
-import es.cic.gestorentradas.gestion.VentaDatos;
 import es.cic.gestorentradas.services.SesionService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,7 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static es.cic.gestorentradas.gestion.SesionDatos.*;
+import static es.cic.gestorentradas.gestion.SesionDatos.SESION_1;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @SpringBootTest
@@ -23,15 +20,6 @@ class SesionControllerTest {
     private MockMvc moc;
     @Autowired
     private SesionService sesionService;
-
-    @BeforeEach
-    void clean() {
-        GestorVentasCines.removeVentaPorId("VENTA_1");
-        VentaDatos.setUltimoId(0);
-        SESION_2.setEntradasDisponibles(100);
-        SESION_7.setEntradasDisponibles(20);
-        SESION_3.setEntradasDisponibles(100);
-    }
 
     @Test
     void verSesion() throws Exception {
