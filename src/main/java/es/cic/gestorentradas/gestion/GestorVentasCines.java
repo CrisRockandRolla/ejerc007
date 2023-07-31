@@ -48,7 +48,7 @@ public class GestorVentasCines {
         mapaCine.get(idCine).forEach(sala ->
                 sala.getSesiones().forEach(sesion -> {
                     if (sesion.getId().equalsIgnoreCase(sesionDatos.getId())) {
-                        sesion.setEntradasDisponibles(sesion.getEntradasDisponibles() - entradas);
+                        sesion.setEntradasDisponibles((sesion.getEntradasDisponibles() - entradas));
                     }
                 }));
     }
@@ -90,7 +90,7 @@ public class GestorVentasCines {
         return sb.toString();
     }
 
-    private static void pintarDatos(StringBuilder sb, SalaDatos sala, SesionDatos sesion, CineDatos cine) {
+    public static void pintarDatos(StringBuilder sb, SalaDatos sala, SesionDatos sesion, CineDatos cine) {
         sb.append(cine.getId())
                 .append("\t\t").append(sala.getId())
                 .append("\t\t").append(sesion.getId())
@@ -114,6 +114,11 @@ public class GestorVentasCines {
         SesionDatos sesion = venta.getSesionDto();
         sesion.getVentas().remove(venta);
 
+    }
+
+    public static void reiniciarBD(String idVenta) {
+        mapaCine.clear();
+        addCine(CINE_1.getId());
     }
 
     public static int entradasDisponibles(SesionDatos session, CineDatos cine) {

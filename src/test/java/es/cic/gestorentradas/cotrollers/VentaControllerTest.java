@@ -3,7 +3,7 @@ package es.cic.gestorentradas.cotrollers;
 import es.cic.gestorentradas.gestion.GestorVentasCines;
 import es.cic.gestorentradas.gestion.VentaDatos;
 import es.cic.gestorentradas.services.VentaService;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -26,13 +26,14 @@ class VentaControllerTest {
     private VentaService ventaService;
 
 
-    @BeforeEach
+    @AfterEach
     void clean() {
         GestorVentasCines.removeVentaPorId("VENTA_1");
         VentaDatos.setUltimoId(0);
         SESION_2.setEntradasDisponibles(100);
+        SESION_2.setEntradasVendidas(0);
         SESION_7.setEntradasDisponibles(20);
-        SESION_3.setEntradasDisponibles(100);
+        SESION_7.setEntradasVendidas(0);
     }
 
     @Test
@@ -90,12 +91,12 @@ class VentaControllerTest {
         ventaDatos.setNumEntradas(4);
         ventaDatos.setTotalPagar(ventaDatos.calcularTotalPagar());
         ventaDatos.setDescuento(ventaDatos.calcularDescuento());
-        ventaDatos.setSesionDto(SESION_3);
+        ventaDatos.setSesionDto(SESION_2);
         GestorVentasCines.addVenta(ventaDatos, CINE_1.getId());
 
         int entradasCancelar = 2;
 
-        String respuesta = "Venta Nº VENTA_1\tSESION_3\n" +
+        String respuesta = "Venta Nº VENTA_1\tSESION_2\n" +
                 "\tEntradas 2\tPrecio 5.0\ttotal 10.0\tDescuento 0.0\ttotalPagar 10.0\n" +
                 "\tVenta cancelada false\t\tEntradas Canceladas 2" + "\n";
 
@@ -111,7 +112,7 @@ class VentaControllerTest {
         ventaDatos.setNumEntradas(4);
         ventaDatos.setTotalPagar(ventaDatos.calcularTotalPagar());
         ventaDatos.setDescuento(ventaDatos.calcularDescuento());
-        ventaDatos.setSesionDto(SESION_3);
+        ventaDatos.setSesionDto(SESION_2);
         GestorVentasCines.addVenta(ventaDatos, CINE_1.getId());
 
         int entradasCancelar = -2;
@@ -129,7 +130,7 @@ class VentaControllerTest {
         ventaDatos.setNumEntradas(4);
         ventaDatos.setTotalPagar(ventaDatos.calcularTotalPagar());
         ventaDatos.setDescuento(ventaDatos.calcularDescuento());
-        ventaDatos.setSesionDto(SESION_3);
+        ventaDatos.setSesionDto(SESION_2);
         GestorVentasCines.addVenta(ventaDatos, CINE_1.getId());
 
 
@@ -148,7 +149,7 @@ class VentaControllerTest {
         ventaDatos.setNumEntradas(50);
         ventaDatos.setTotalPagar(ventaDatos.calcularTotalPagar());
         ventaDatos.setDescuento(ventaDatos.calcularDescuento());
-        ventaDatos.setSesionDto(SESION_3);
+        ventaDatos.setSesionDto(SESION_2);
         GestorVentasCines.addVenta(ventaDatos, CINE_1.getId());
 
 
@@ -163,7 +164,7 @@ class VentaControllerTest {
         ventaDatos.setNumEntradas(4);
         ventaDatos.setTotalPagar(ventaDatos.calcularTotalPagar());
         ventaDatos.setDescuento(ventaDatos.calcularDescuento());
-        ventaDatos.setSesionDto(SESION_3);
+        ventaDatos.setSesionDto(SESION_2);
         GestorVentasCines.addVenta(ventaDatos, CINE_1.getId());
 
         moc.perform(MockMvcRequestBuilders.patch("/update/venta/{id}/_{sesion}", ventaDatos.getId(), "SESION_25"))
@@ -177,7 +178,7 @@ class VentaControllerTest {
         ventaDatos.setNumEntradas(4);
         ventaDatos.setTotalPagar(ventaDatos.calcularTotalPagar());
         ventaDatos.setDescuento(ventaDatos.calcularDescuento());
-        ventaDatos.setSesionDto(SESION_3);
+        ventaDatos.setSesionDto(SESION_2);
         GestorVentasCines.addVenta(ventaDatos, CINE_1.getId());
 
 
@@ -196,7 +197,7 @@ class VentaControllerTest {
         ventaDatos.setNumEntradas(50);
         ventaDatos.setTotalPagar(ventaDatos.calcularTotalPagar());
         ventaDatos.setDescuento(ventaDatos.calcularDescuento());
-        ventaDatos.setSesionDto(SESION_3);
+        ventaDatos.setSesionDto(SESION_2);
         GestorVentasCines.addVenta(ventaDatos, CINE_1.getId());
 
 
@@ -218,7 +219,7 @@ class VentaControllerTest {
         ventaDatos.setNumEntradas(2);
         ventaDatos.setTotalPagar(ventaDatos.calcularTotalPagar());
         ventaDatos.setDescuento(ventaDatos.calcularDescuento());
-        ventaDatos.setSesionDto(SESION_3);
+        ventaDatos.setSesionDto(SESION_2);
         GestorVentasCines.addVenta(ventaDatos, CINE_1.getId());
 
         moc.perform(MockMvcRequestBuilders.delete("/delete/venta/{id}", "VENTA_1"))
