@@ -25,6 +25,7 @@ class CineControllerTest {
 
     @Test
     void index() throws Exception {
+
         moc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(content().string("Bienvenido a cines-CIC"));

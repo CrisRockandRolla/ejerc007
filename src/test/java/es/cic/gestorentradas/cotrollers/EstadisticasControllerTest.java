@@ -1,9 +1,7 @@
 package es.cic.gestorentradas.cotrollers;
 
 import es.cic.gestorentradas.gestion.GestorVentasCines;
-import es.cic.gestorentradas.gestion.VentaDatos;
 import es.cic.gestorentradas.services.EstadisticasService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,21 +22,15 @@ class EstadisticasControllerTest {
     private MockMvc moc;
     @Autowired
     private EstadisticasService estadisticasService;
-
-    @AfterEach
-    void clean() {
-        GestorVentasCines.removeVentaPorId("VENTA_1");
-        VentaDatos.setUltimoId(0);
-        SESION_3.setEntradasDisponibles(100);
-    }
-
+    
     @Test
     void get() throws Exception {
+        System.out.println(GestorVentasCines.mostrar(SESION_3, CINE_1) + "\t" + GestorVentasCines.entradasDisponibles(SESION_3, CINE_1));
         String respuesta = "CINE_1\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=510, Ocupacion=0.0, Entradas vendidas=0}\n" +
                 "\tSALA_1\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=300, Ocupacion=0.0, Entradas vendidas=0}\n" +
                 "\t\tSESION_1: 17:00, Film1\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=100, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 100\n" +
                 "\t\tSESION_2: 20:00, Film1\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=100, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 100\n" +
-                "\t\tSESION_3: 22:30, Film2\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=100, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 110\n" +
+                "\t\tSESION_3: 22:30, Film2\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=100, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 100\n" +
                 "\tSALA_2\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=150, Ocupacion=0.0, Entradas vendidas=0}\n" +
                 "\t\tSESION_4: 17:00, Film3\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=50, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 50\n" +
                 "\t\tSESION_5: 20:00, Film2\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=50, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 50\n" +
