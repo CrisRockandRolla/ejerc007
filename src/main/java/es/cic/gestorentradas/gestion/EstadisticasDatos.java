@@ -13,6 +13,7 @@ public class EstadisticasDatos {
         int aforo = 0, entradasVendidas = 0;
         double totalRecaudado = 0, totalDescuentos = 0;
 
+
         for (SalaDatos sala : salasCine) {
             if (idSala != null && !sala.getId().equalsIgnoreCase(idSala)) continue;
             for (SesionDatos sesion : sala.getSesiones()) {
@@ -49,14 +50,13 @@ public class EstadisticasDatos {
             sb.append("\t").append(sala.getId()).append("\t")
                     .append(datosSala(GestorVentasCines.getSalasCine(cine.getId()), sala.getId()));
             sb.append("\n");
-            sala.getSesiones().forEach(sesion -> {
-                sb.append("\t\t").append(sesion.getId())
-                        .append(": ").append(sesion.getHora())
-                        .append(", ").append(sesion.getPelicula())
-                        .append("\t").append(datosSesion(GestorVentasCines.getSalasCine(cine.getId()), sesion.getId()))
-                        .append("\t\t Entradas disponibles: ").append(sesion.getEntradasDisponibles())
-                        .append("\n");
-            });
+            sala.getSesiones().forEach(sesion ->
+                    sb.append("\t\t").append(sesion.getId())
+                            .append(": ").append(sesion.getHora())
+                            .append(", ").append(sesion.getPelicula())
+                            .append("\t").append(datosSesion(GestorVentasCines.getSalasCine(cine.getId()), sesion.getId()))
+                            .append("\t\t Entradas disponibles: ").append(sesion.getEntradasDisponibles())
+                            .append("\n"));
         });
         return sb.toString();
     }
