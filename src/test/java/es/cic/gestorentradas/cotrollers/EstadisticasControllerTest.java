@@ -3,7 +3,7 @@ package es.cic.gestorentradas.cotrollers;
 import es.cic.gestorentradas.gestion.GestorVentasCines;
 import es.cic.gestorentradas.gestion.VentaDatos;
 import es.cic.gestorentradas.services.EstadisticasService;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,7 +25,7 @@ class EstadisticasControllerTest {
     @Autowired
     private EstadisticasService estadisticasService;
 
-    @AfterEach
+    @BeforeEach
     void clean() {
         GestorVentasCines.removeVentaPorId("VENTA_1");
         VentaDatos.setUltimoId(0);
@@ -38,7 +38,7 @@ class EstadisticasControllerTest {
                 "\tSALA_1\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=300, Ocupacion=0.0, Entradas vendidas=0}\n" +
                 "\t\tSESION_1: 17:00, Film1\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=100, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 100\n" +
                 "\t\tSESION_2: 20:00, Film1\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=100, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 100\n" +
-                "\t\tSESION_3: 22:30, Film2\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=100, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 110\n" +
+                "\t\tSESION_3: 22:30, Film2\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=100, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 100\n" +
                 "\tSALA_2\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=150, Ocupacion=0.0, Entradas vendidas=0}\n" +
                 "\t\tSESION_4: 17:00, Film3\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=50, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 50\n" +
                 "\t\tSESION_5: 20:00, Film2\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=50, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 50\n" +
@@ -47,7 +47,6 @@ class EstadisticasControllerTest {
                 "\t\tSESION_7: 17:00, Film5\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=20, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 20\n" +
                 "\t\tSESION_8: 20:00, Film3\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=20, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 20\n" +
                 "\t\tSESION_9: 22:30, Film5\t{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=20, Ocupacion=0.0, Entradas vendidas=0}\t\t Entradas disponibles: 20\n";
-
         moc.perform(MockMvcRequestBuilders.get("/estadisticas/{id}", CINE_1))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(content().string(respuesta));

@@ -3,7 +3,7 @@ package es.cic.gestorentradas.cotrollers;
 import es.cic.gestorentradas.gestion.GestorVentasCines;
 import es.cic.gestorentradas.gestion.VentaDatos;
 import es.cic.gestorentradas.services.VentaService;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -26,7 +26,7 @@ class VentaControllerTest {
     private VentaService ventaService;
 
 
-    @AfterEach
+    @BeforeEach
     void clean() {
         GestorVentasCines.removeVentaPorId("VENTA_1");
         VentaDatos.setUltimoId(0);
