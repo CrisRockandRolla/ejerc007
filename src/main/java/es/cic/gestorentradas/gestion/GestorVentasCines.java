@@ -1,5 +1,6 @@
 package es.cic.gestorentradas.gestion;
 
+import es.cic.gestorentradas.assembler.AssemblerVenta;
 import es.cic.gestorentradas.excepciones.VentaException;
 
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 import static es.cic.gestorentradas.gestion.CineDatos.CINE_1;
 import static es.cic.gestorentradas.gestion.EstadisticasDatos.*;
+import static es.cic.gestorentradas.gestion.SesionDatos.SESION_2;
 
 public class GestorVentasCines {
     private static final Map<String, List<SalaDatos>> mapaCine = new HashMap<>();
@@ -130,5 +132,16 @@ public class GestorVentasCines {
                     }
                 }));
         return entradasDisponibles[0];
+    }
+
+    public static VentaDatos preCargarVenta(int numEntradas) {
+        VentaDatos ventaDatos = new VentaDatos();
+        ventaDatos.setNumEntradas(numEntradas);
+        ventaDatos.setTotalPagar(ventaDatos.calcularTotalPagar());
+        ventaDatos.setDescuento(ventaDatos.calcularDescuento());
+        ventaDatos.setSesionDto(SESION_2);
+        AssemblerVenta.assembleVenta(2, SESION_2);
+        GestorVentasCines.addVenta(ventaDatos, CINE_1.getId());
+        return ventaDatos;
     }
 }

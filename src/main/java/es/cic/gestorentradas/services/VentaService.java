@@ -15,7 +15,7 @@ public class VentaService {
         if (numEntradasCompradas > GestorVentasCines.entradasDisponibles(sesionDatos, CineDatos.CINE_1))
             throw new VentaException("No hay suficientes entradas. Quiere " + numEntradasCompradas + " pero hay " + GestorVentasCines.entradasDisponibles(sesionDatos, CineDatos.CINE_1) + "\n");
         if (numEntradasCompradas <= 0)
-            throw new VentaException("El numero de entradas a comprar tiene que ser mayor de 0");
+            throw new VentaException("El numero de entradas tiene que ser mayor de 0\n");
 
         return AssemblerVenta.assembleVenta(numEntradasCompradas, sesionDatos);
     }
@@ -35,7 +35,7 @@ public class VentaService {
         if (ventaToModificar.isCancelada()) throw new VentaException("La venta esta cancelada\n");
         if (ventaToModificar.getNumEntradas() < entradasCancelar)
             throw new VentaException("No se pueden cancelar más entradas que las que se tienen compradas. Quiere cancelar " + entradasCancelar + " pero hay tiene compradas " + ventaToModificar.getNumEntradas() + "\n");
-        if (entradasCancelar < 0) throw new VentaException("El numero de entradas a cancelar tiene que ser positivo\n");
+        if (entradasCancelar < 0) throw new VentaException("El numero de entradas tiene que ser mayor de 0\n");
 
         validarCambio(entradasCancelar, ventaToModificar);
 
@@ -62,7 +62,7 @@ public class VentaService {
         int entradasNuevaSesion = ventaModificada.getNumEntradas() - entradasCancelar;
         if (entradasNuevaSesion > session.getEntradasDisponibles())
             throw new VentaException("No hay suficientes entradas para la nueva sesion. Quiere " + entradasNuevaSesion + " pero para la sesion " + session.getId() + " solo hay " + session.getEntradasDisponibles() + "\n");
-        if (entradasCancelar < 0) throw new VentaException("El numero de entradas a cancelar tiene que ser positivo\n");
+        if (entradasCancelar < 0) throw new VentaException("El numero de entradas tiene que ser mayor de 0\n");
 
         validarCambio(session, ventaModificada, entradasNuevaSesion);
 
