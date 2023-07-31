@@ -25,7 +25,8 @@ class SesionControllerTest {
     void verSesion() throws Exception {
 
         String contenidoSesion1 = "<pre>CINE_1\t\tSALA_1\t\tSESION_1: 17:00, Film1\t\t Entradas disponibles: 100\n" +
-                "</pre>";
+                "\n" +
+                "{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=100, Ocupacion=0.0, Entradas vendidas=0}</pre>\n";
 
         moc.perform(MockMvcRequestBuilders.get("/sesion/{id}", SESION_1.getId()))
                 .andExpect(MockMvcResultMatchers.status().isOk())

@@ -27,7 +27,9 @@ class SalaControllerTest {
         String contenidoSala1 = "<pre>CINE_1\t\tSALA_1\t\tSESION_1: 17:00, Film1\t\t Entradas disponibles: 100\n" +
                 "CINE_1\t\tSALA_1\t\tSESION_2: 20:00, Film1\t\t Entradas disponibles: 100\n" +
                 "CINE_1\t\tSALA_1\t\tSESION_3: 22:30, Film2\t\t Entradas disponibles: 100\n" +
-                "</pre>";
+                "</pre>\n" +
+                "{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=300, Ocupacion=0.0, Entradas vendidas=0}\n" +
+                "</pre>\n";
 
         moc.perform(MockMvcRequestBuilders.get("/sala/{id}", SALA_1.getId())
                         .contentType(MediaType.TEXT_PLAIN))

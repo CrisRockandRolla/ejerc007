@@ -42,7 +42,9 @@ class CineControllerTest {
                 "CINE_1\t\tSALA_3\t\tSESION_7: 17:00, Film5\t\t Entradas disponibles: 20\n" +
                 "CINE_1\t\tSALA_3\t\tSESION_8: 20:00, Film3\t\t Entradas disponibles: 20\n" +
                 "CINE_1\t\tSALA_3\t\tSESION_9: 22:30, Film5\t\t Entradas disponibles: 20\n" +
-                "</pre>";
+                "\n" +
+                "{Total descuentos=0.0, Total Recaudado=0.0, Aforo total=510, Ocupacion=0.0, Entradas vendidas=0}\n" +
+                "</pre>\n";
 
 
         moc.perform(MockMvcRequestBuilders.get("/cine/{id}", CINE_1.getId())

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import static es.cic.gestorentradas.gestion.CineDatos.CINE_1;
+import static es.cic.gestorentradas.gestion.EstadisticasDatos.*;
 
 public class GestorVentasCines {
     private static final Map<String, List<SalaDatos>> mapaCine = new HashMap<>();
@@ -53,12 +54,12 @@ public class GestorVentasCines {
     }
 
     //TODO hace que mostrar sea buscar y devuelva el objeto a buscar
-    public static String mostrar(CineDatos cine) {// etiqueta <pre> para mantener los espacios en blanco, saltos de linea y tabulaciones
+    public static String mostrar(CineDatos cine) {// etiqueta <pre> para mantener los espacios en blanco, saltos de línea y tabulaciones
         final StringBuilder sb = new StringBuilder("<pre>");
         getSalasCine(cine.getId()).forEach(sala ->
                 sala.getSesiones().forEach(sesion ->
                         pintarDatos(sb, sala, sesion, cine)));
-        sb.append("</pre>");
+        sb.append("\n").append(datosCine(cine.getSalas())).append("\n").append("</pre>").append("\n");
         return sb.toString();
     }
 
@@ -71,6 +72,7 @@ public class GestorVentasCines {
             }
         });
         sb.append("</pre>");
+        sb.append("\n").append(datosSala(getSalasCine(cine.getId()), sal.getId())).append("\n").append("</pre>").append("\n");
         return sb.toString();
     }
 
@@ -82,7 +84,8 @@ public class GestorVentasCines {
                         pintarDatos(sb, sala, sesion, cine);
                     }
                 }));
-        sb.append("</pre>");
+        sb.append("\n").append(datosSesion(getSalasCine(cine.getId()), session.getId())).append("</pre>");
+        sb.append("\n");
         return sb.toString();
     }
 
