@@ -59,7 +59,8 @@ public class GestorVentasCines {
         getSalasCine(cine.getId()).forEach(sala ->
                 sala.getSesiones().forEach(sesion ->
                         pintarDatos(sb, sala, sesion, cine)));
-        sb.append("\n").append(datosCine(cine.getSalas())).append("\n").append("</pre>").append("\n");
+        sb.append("\n").append(datosCine(cine.getSalas()))
+                .append("</pre>").append("\n");
         return sb.toString();
     }
 

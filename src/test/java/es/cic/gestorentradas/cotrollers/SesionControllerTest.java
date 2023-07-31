@@ -30,6 +30,7 @@ class SesionControllerTest {
         VentaDatos.setUltimoId(0);
         SESION_2.setEntradasDisponibles(100);
         SESION_7.setEntradasDisponibles(20);
+        SESION_3.setEntradasDisponibles(100);
     }
 
     @Test

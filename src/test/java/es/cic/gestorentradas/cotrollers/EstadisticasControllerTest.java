@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static es.cic.gestorentradas.gestion.CineDatos.CINE_1;
-import static es.cic.gestorentradas.gestion.SesionDatos.SESION_3;
+import static es.cic.gestorentradas.gestion.SesionDatos.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @SpringBootTest
@@ -29,6 +29,9 @@ class EstadisticasControllerTest {
     void clean() {
         GestorVentasCines.removeVentaPorId("VENTA_1");
         VentaDatos.setUltimoId(0);
+        SESION_2.setEntradasDisponibles(100);
+        SESION_7.setEntradasDisponibles(20);
+        SESION_3.setEntradasDisponibles(100);
         SESION_3.setEntradasDisponibles(100);
     }
 
