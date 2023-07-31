@@ -33,7 +33,7 @@ class CineControllerIntegrationTest {
     void verCine() throws Exception {
         moc.perform(MockMvcRequestBuilders.get("/cine/{id}", CINE_1.getId()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().string(DatosTest.contenidoCine));
+                .andExpect(content().string(DatosTest.CONTENIDO_CINE));
 
     }
 

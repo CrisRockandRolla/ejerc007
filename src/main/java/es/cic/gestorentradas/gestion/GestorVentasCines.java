@@ -1,6 +1,5 @@
 package es.cic.gestorentradas.gestion;
 
-import es.cic.gestorentradas.assembler.AssemblerVenta;
 import es.cic.gestorentradas.excepciones.VentaException;
 
 import java.util.Arrays;
@@ -8,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static es.cic.gestorentradas.excepciones.AvisosExcepciones.ID_NO_ENCONTRADO;
+import static es.cic.gestorentradas.excepciones.AvisosExcepciones.ID_REPETIDO;
 import static es.cic.gestorentradas.gestion.CineDatos.CINE_1;
 import static es.cic.gestorentradas.gestion.EstadisticasDatos.*;
 import static es.cic.gestorentradas.gestion.SesionDatos.SESION_2;
@@ -30,19 +31,19 @@ public class GestorVentasCines {
     }
 
     public static void addVenta(VentaDatos venta, String idCine) {
-        boolean ventaIdExiste = getSalasCine(idCine).stream()
-                .flatMap(sala -> sala.getSesiones().stream())
-                .anyMatch(sesion -> sesion.getId().equalsIgnoreCase(venta.getSesionDto().getId())
-                        && sesion.getVentas().stream().anyMatch(ventaDatos -> ventaDatos.getId().equals(venta.getId())));
-
-        if (!ventaIdExiste) {
-            getSalasCine(idCine).stream()
-                    .flatMap(sala -> sala.getSesiones().stream())
-                    .filter(sesion -> sesion.getId().equalsIgnoreCase(venta.getSesionDto().getId()))
-                    .findFirst()
-                    .ifPresent(sesion -> sesion.getVentas().add(venta));
-        } else {
-            throw new VentaException("Ya existe una venta con el mismo ID.");
+        FUERA:
+        for (SalaDatos salaDatos : getSalasCine(CINE_1.getId())) {
+            for (SesionDatos sesionDatos : salaDatos.getSesiones()) {
+                if (!sesionDatos.getId().equalsIgnoreCase(venta.getSesionDto().getId())) continue;
+                sesionDatos.getVentas().stream()
+                        .filter(ventaDatos -> ventaDatos.getId().equalsIgnoreCase(venta.getId()))
+                        .findFirst()
+                        .ifPresent(ventaDatos -> {
+                            throw new VentaException(ID_REPETIDO);
+                        });
+                sesionDatos.getVentas().add(venta);
+                break FUERA;
+            }
         }
     }
 
@@ -55,39 +56,37 @@ public class GestorVentasCines {
                 }));
     }
 
-    //TODO hace que mostrar sea buscar y devuelva el objeto a buscar
-    public static String mostrar(CineDatos cine) {// etiqueta <pre> para mantener los espacios en blanco, saltos de línea y tabulaciones
-        final StringBuilder sb = new StringBuilder("<pre>");
+    public static String mostrar(CineDatos cine) {
+        final StringBuilder sb = new StringBuilder();
         getSalasCine(cine.getId()).forEach(sala ->
                 sala.getSesiones().forEach(sesion ->
                         pintarDatos(sb, sala, sesion, cine)));
         sb.append("\n").append(datosCine(cine.getSalas()))
-                .append("</pre>").append("\n");
+                .append("\n");
         return sb.toString();
     }
 
     public static String mostrar(SalaDatos sal, CineDatos cine) {
-        StringBuilder sb = new StringBuilder("<pre>");
+        StringBuilder sb = new StringBuilder();
         getSalasCine(CINE_1.getId()).forEach(sala -> {
             if (sala.getId().equalsIgnoreCase(sal.getId())) {
                 sala.getSesiones().forEach(sesion ->
                         pintarDatos(sb, sala, sesion, cine));
             }
         });
-        sb.append("</pre>");
-        sb.append("\n").append(datosSala(getSalasCine(cine.getId()), sal.getId())).append("\n").append("</pre>").append("\n");
+        sb.append("\n").append(datosSala(getSalasCine(cine.getId()), sal.getId())).append("\n");
         return sb.toString();
     }
 
     public static String mostrar(SesionDatos session, CineDatos cine) {
-        StringBuilder sb = new StringBuilder("<pre>");
+        StringBuilder sb = new StringBuilder();
         getSalasCine(cine.getId()).forEach(sala ->
                 sala.getSesiones().forEach(sesion -> {
                     if (sesion.getId().equalsIgnoreCase(session.getId())) {
                         pintarDatos(sb, sala, sesion, cine);
                     }
                 }));
-        sb.append("\n").append(datosSesion(getSalasCine(cine.getId()), session.getId())).append("</pre>");
+        sb.append("\n").append(datosSesion(getSalasCine(cine.getId()), session.getId()));
         sb.append("\n");
         return sb.toString();
     }
@@ -108,19 +107,13 @@ public class GestorVentasCines {
                 .flatMap(sesion -> sesion.getVentas().stream())
                 .filter(venta -> venta.getId().equalsIgnoreCase(idVenta))
                 .findFirst()
-                .orElseThrow(() -> new VentaException("No se ha encontrado la venta con id " + idVenta + "\n"));
+                .orElseThrow(() -> new VentaException(ID_NO_ENCONTRADO + idVenta + "\n"));
     }
 
     public static void eliminarVenta(String idVenta) {
         VentaDatos venta = buscarVenta(idVenta);
         SesionDatos sesion = venta.getSesionDto();
         sesion.getVentas().remove(venta);
-
-    }
-
-    public static void reiniciarBD(String idVenta) {
-        mapaCine.clear();
-        addCine(CINE_1.getId());
     }
 
     public static int entradasDisponibles(SesionDatos session, CineDatos cine) {
@@ -140,7 +133,6 @@ public class GestorVentasCines {
         ventaDatos.setTotalPagar(ventaDatos.calcularTotalPagar());
         ventaDatos.setDescuento(ventaDatos.calcularDescuento());
         ventaDatos.setSesionDto(SESION_2);
-        AssemblerVenta.assembleVenta(2, SESION_2);
         GestorVentasCines.addVenta(ventaDatos, CINE_1.getId());
         return ventaDatos;
     }

@@ -23,6 +23,6 @@ class SesionControllerIntegrationTest {
     void verSesion() throws Exception {
         moc.perform(MockMvcRequestBuilders.get("/sesion/{id}", SESION_7.getId()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().string(DatosTest.respuestaVerSesion));
+                .andExpect(content().string(DatosTest.CONTENIDO_VER_SESION));
     }
 }

@@ -12,7 +12,7 @@ public class DataInitializer {
 
     @PostConstruct
     public void initializeData() {
-        //Guardo los cines, salas y sesiones en memoria
+        //Guardo los cines, salas y sesiones en caché
         GestorVentasCines.addCine(CINE_1.getId());
     }
 }

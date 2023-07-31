@@ -10,7 +10,6 @@ public enum CineDatos {
     private final String id;
     private final List<SalaDatos> salas;
 
-
     CineDatos(List<SalaDatos> salas) {
         this.id = name();
         this.salas = salas;

@@ -22,6 +22,6 @@ class SalaControllerIntegrationTest {
     void verSala() throws Exception {
         moc.perform(MockMvcRequestBuilders.get("/sala/{id}", SALA_1.getId()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().string(DatosTest.contenidoSala1));
+                .andExpect(content().string(DatosTest.CONTENIDO_SALA_1));
     }
 }

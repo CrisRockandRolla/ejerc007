@@ -8,6 +8,8 @@ import es.cic.gestorentradas.services.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import static es.cic.gestorentradas.excepciones.AvisosExcepciones.ERROR_SERVIDOR;
+import static es.cic.gestorentradas.excepciones.AvisosExcepciones.VENTA_ELIMINADA_OK;
 import static es.cic.gestorentradas.gestion.CineDatos.CINE_1;
 
 @RestController
@@ -20,7 +22,6 @@ public class VentaController {
     @PostMapping(path = "/create/{numEntradas}/{sesion}")//curl -X POST
     public String crear(@PathVariable int numEntradas, @PathVariable SesionDatos sesion) {
         VentaDatos ventaDatos = ventaService.crearVenta(numEntradas, sesion);
-        //TODO VALIDAR ventaDto
         GestorVentasCines.actualizarEntradasDisponibles(sesion, numEntradas, CINE_1.getId());
         GestorVentasCines.addVenta(ventaDatos, CINE_1.getId());
         return ventaDatos.toString();
@@ -34,7 +35,7 @@ public class VentaController {
 
     @PatchMapping  //curl -X PATCH
     @RequestMapping(value = {"/update/venta/{id}/{entradasCancelar}", "/update/venta/{id}/_{sesion}",
-            "/update/venta/{id}/{entradasCancelar}/{sesion}"})
+            "/update/venta/{id}/{entradasCancelar}/{sesion}" })
     public String modificarVenta(@PathVariable() String id, @PathVariable(required = false) Integer entradasCancelar,
                                  @PathVariable(required = false) SesionDatos sesion) {
 
@@ -50,13 +51,13 @@ public class VentaController {
             VentaDatos ventaDatos = ventaService.modificarVenta(id, entradasCancelar);
             return ventaDatos.toString();
         }
-        throw new VentaException("Error del servidor al modificar la venta");
+        throw new VentaException(ERROR_SERVIDOR);
     }
 
     @DeleteMapping(path = "/delete/venta/{id}") //curl -X DELETE
     public String eliminar(@PathVariable String id) {
         ventaService.eliminarVenta(id);
-        return "Venta eliminada correctamente\n";
+        return VENTA_ELIMINADA_OK;
     }
 }
 

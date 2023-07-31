@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import static es.cic.gestorentradas.excepciones.AvisosExcepciones.PAGINA_NO_ENCONTRADA;
+
 @ControllerAdvice
 public class ExceptionController {
 
@@ -18,6 +20,6 @@ public class ExceptionController {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> handleBadRequest(Exception ex) {
-        return ResponseEntity.badRequest().body("No se encuentra la pagina solicitada\n");
+        return ResponseEntity.badRequest().body(PAGINA_NO_ENCONTRADA);
     }
 }

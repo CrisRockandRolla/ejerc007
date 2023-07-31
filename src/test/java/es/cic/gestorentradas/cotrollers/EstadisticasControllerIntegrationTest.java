@@ -23,6 +23,6 @@ class EstadisticasControllerIntegrationTest {
     void get() throws Exception {
         moc.perform(MockMvcRequestBuilders.get("/estadisticas/{id}", CINE_1))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().string(DatosTest.contenidoEstadisticas));
+                .andExpect(content().string(DatosTest.CONTENIDO_ESTADISTICAS));
     }
 }

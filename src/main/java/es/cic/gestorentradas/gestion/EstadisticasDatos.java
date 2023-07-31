@@ -13,7 +13,6 @@ public class EstadisticasDatos {
         int aforo = 0, entradasVendidas = 0;
         double totalRecaudado = 0, totalDescuentos = 0;
 
-
         for (SalaDatos sala : salasCine) {
             if (idSala != null && !sala.getId().equalsIgnoreCase(idSala)) continue;
             for (SesionDatos sesion : sala.getSesiones()) {
@@ -27,7 +26,6 @@ public class EstadisticasDatos {
                 }
             }
         }
-
         double ocupacion = (double) entradasVendidas * 100 / aforo;
 
         return getEstadisticasCineMap(aforo, entradasVendidas, totalRecaudado, totalDescuentos, ocupacion);

@@ -8,6 +8,9 @@ import es.cic.gestorentradas.gestion.SesionDatos;
 import es.cic.gestorentradas.gestion.VentaDatos;
 import org.springframework.stereotype.Service;
 
+import static es.cic.gestorentradas.excepciones.AvisosExcepciones.ENTRADAS_NEGATIVO;
+import static es.cic.gestorentradas.excepciones.AvisosExcepciones.ID_NO_ENCONTRADO;
+
 @Service
 public class VentaService {
 
@@ -15,7 +18,7 @@ public class VentaService {
         if (numEntradasCompradas > GestorVentasCines.entradasDisponibles(sesionDatos, CineDatos.CINE_1))
             throw new VentaException("No hay suficientes entradas. Quiere " + numEntradasCompradas + " pero hay " + GestorVentasCines.entradasDisponibles(sesionDatos, CineDatos.CINE_1) + "\n");
         if (numEntradasCompradas <= 0)
-            throw new VentaException("El numero de entradas tiene que ser mayor de 0\n");
+            throw new VentaException(ENTRADAS_NEGATIVO);
 
         return AssemblerVenta.assembleVenta(numEntradasCompradas, sesionDatos);
     }
@@ -26,22 +29,20 @@ public class VentaService {
                 .flatMap(sesion -> sesion.getVentas().stream())
                 .filter(venta -> venta.getId().equalsIgnoreCase(id))
                 .findFirst()
-                .orElseThrow(() -> new VentaException("No se ha encontrado la venta con id " + id + "\n"));
+                .orElseThrow(() -> new VentaException(ID_NO_ENCONTRADO + id + "\n"));
     }
-
 
     public VentaDatos modificarVenta(String idVenta, int entradasCancelar) {
         VentaDatos ventaToModificar = GestorVentasCines.buscarVenta(idVenta);
         if (ventaToModificar.isCancelada()) throw new VentaException("La venta esta cancelada\n");
         if (ventaToModificar.getNumEntradas() < entradasCancelar)
             throw new VentaException("No se pueden cancelar más entradas que las que se tienen compradas. Quiere cancelar " + entradasCancelar + " pero hay tiene compradas " + ventaToModificar.getNumEntradas() + "\n");
-        if (entradasCancelar < 0) throw new VentaException("El numero de entradas tiene que ser mayor de 0\n");
+        if (entradasCancelar < 0) throw new VentaException(ENTRADAS_NEGATIVO);
 
         validarCambio(entradasCancelar, ventaToModificar);
 
         return ventaToModificar;
     }
-
 
     public VentaDatos modificarVenta(String idVenta, SesionDatos session) {
         VentaDatos ventaToModificar = GestorVentasCines.buscarVenta(idVenta);
@@ -62,7 +63,7 @@ public class VentaService {
         int entradasNuevaSesion = ventaModificada.getNumEntradas() - entradasCancelar;
         if (entradasNuevaSesion > session.getEntradasDisponibles())
             throw new VentaException("No hay suficientes entradas para la nueva sesion. Quiere " + entradasNuevaSesion + " pero para la sesion " + session.getId() + " solo hay " + session.getEntradasDisponibles() + "\n");
-        if (entradasCancelar < 0) throw new VentaException("El numero de entradas tiene que ser mayor de 0\n");
+        if (entradasCancelar < 0) throw new VentaException(ENTRADAS_NEGATIVO);
 
         validarCambio(session, ventaModificada, entradasNuevaSesion);
 

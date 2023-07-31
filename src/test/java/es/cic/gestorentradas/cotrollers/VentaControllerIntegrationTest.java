@@ -26,7 +26,7 @@ class VentaControllerIntegrationTest {
     private MockMvc moc;
 
     @AfterEach
-    void clean() {
+    void reset() {
         GestorVentasCines.removeVentaPorId("VENTA_1");
         VentaDatos.setUltimoId(0);
         SESION_2.setEntradasDisponibles(100);
@@ -39,14 +39,14 @@ class VentaControllerIntegrationTest {
     void crear() throws Exception {
         moc.perform(MockMvcRequestBuilders.post("/create/{numEntradas}/{sesion}", 50, SESION_2))
                 .andExpect(status().isOk())
-                .andExpect(content().string(DatosTest.respuestaVerCrear));
+                .andExpect(content().string(DatosTest.RESPUESTA_VER_CREAR));
     }
 
     @Test
     void crear_EntradasNegativo() throws Exception {
         moc.perform(MockMvcRequestBuilders.post("/create/{numEntradas}/{sesion}", 0, SESION_2))
                 .andExpect(status().is5xxServerError())
-                .andExpect(content().string(AvisosExcepciones.entradasNegativo));
+                .andExpect(content().string(AvisosExcepciones.ENTRADAS_NEGATIVO));
     }
 
     @Test
@@ -62,14 +62,14 @@ class VentaControllerIntegrationTest {
 
         moc.perform(MockMvcRequestBuilders.get("/venta/{id}", ventaDatos.getId()))
                 .andExpect(status().isOk())
-                .andExpect(content().string(DatosTest.respuestaVerCrear));
+                .andExpect(content().string(DatosTest.RESPUESTA_VER_CREAR));
     }
 
     @Test
     void verNoExisteId() throws Exception {
         moc.perform(MockMvcRequestBuilders.get("/venta/{id}", "VENTA_25"))
                 .andExpect(status().is5xxServerError())
-                .andExpect(content().string(AvisosExcepciones.idVentaNoExiste));
+                .andExpect(content().string(AvisosExcepciones.ID_NO_ENCONTRADO + "VENTA_25\n"));
     }
 
     @Test
@@ -78,7 +78,7 @@ class VentaControllerIntegrationTest {
 
         moc.perform(MockMvcRequestBuilders.patch("/update/venta/{id}/{entradasCancelar}", ventaDatos.getId(), 2))
                 .andExpect(status().isOk())
-                .andExpect(content().string(DatosTest.respuestaModificarEntradas));
+                .andExpect(content().string(DatosTest.RESPUESTA_MODIFICAR_ENTRADAS));
     }
 
     @Test
@@ -87,7 +87,7 @@ class VentaControllerIntegrationTest {
 
         moc.perform(MockMvcRequestBuilders.patch("/update/venta/{id}/{entradasCancelar}", ventaDatos.getId(), -2))
                 .andExpect(status().is5xxServerError())
-                .andExpect(content().string(AvisosExcepciones.entradasNegativo));
+                .andExpect(content().string(AvisosExcepciones.ENTRADAS_NEGATIVO));
     }
 
     @Test
@@ -96,7 +96,7 @@ class VentaControllerIntegrationTest {
 
         moc.perform(MockMvcRequestBuilders.patch("/update/venta/{id}/_{sesion}", ventaDatos.getId(), SESION_7))
                 .andExpect(status().isOk())
-                .andExpect(content().string(DatosTest.respuestaModificarSesion));
+                .andExpect(content().string(DatosTest.RESPUESTA_MODIFICAR_SESION));
     }
 
     @Test
@@ -114,7 +114,7 @@ class VentaControllerIntegrationTest {
 
         moc.perform(MockMvcRequestBuilders.patch("/update/venta/{id}/_{sesion}", ventaDatos.getId(), "SESION_25"))
                 .andExpect(status().is4xxClientError())
-                .andExpect(content().string(AvisosExcepciones.paginaNoEncontrada));
+                .andExpect(content().string(AvisosExcepciones.PAGINA_NO_ENCONTRADA));
     }
 
     @Test
@@ -123,7 +123,7 @@ class VentaControllerIntegrationTest {
 
         moc.perform(MockMvcRequestBuilders.patch("/update/venta/{id}/{entradasCancelar}/{sesion}", ventaDatos.getId(), 2, SESION_7))
                 .andExpect(status().isOk())
-                .andExpect(content().string(DatosTest.respuestaModificarEntradasSesion));
+                .andExpect(content().string(DatosTest.RESPUESTA_MODIFICAR_ENTRADAS_SESION));
     }
 
     @Test
@@ -139,20 +139,20 @@ class VentaControllerIntegrationTest {
     void modificarVenta_NoExisteId() throws Exception {
         moc.perform(MockMvcRequestBuilders.patch("/update/venta/{id}/{entradasCancelar}", "VENTA_25", 2))
                 .andExpect(status().is5xxServerError())
-                .andExpect(content().string(AvisosExcepciones.idVentaNoExiste));
+                .andExpect(content().string(AvisosExcepciones.ID_NO_ENCONTRADO + "VENTA_25\n"));
     }
 
     @Test
     void eliminar() throws Exception {
         moc.perform(MockMvcRequestBuilders.delete("/delete/venta/{id}", preCargarVenta(4).getId()))
                 .andExpect(status().isOk())
-                .andExpect(content().string(DatosTest.respuestaEliminadaOK));
+                .andExpect(content().string(AvisosExcepciones.VENTA_ELIMINADA_OK));
     }
 
     @Test
     void eliminarNoExisteId() throws Exception {
         moc.perform(MockMvcRequestBuilders.delete("/delete/venta/{id}", "VENTA_25"))
                 .andExpect(status().is5xxServerError())
-                .andExpect(content().string(AvisosExcepciones.idVentaNoExiste));
+                .andExpect(content().string(AvisosExcepciones.ID_NO_ENCONTRADO + "VENTA_25\n"));
     }
 }
