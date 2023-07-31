@@ -20,20 +20,10 @@ public class GestorVentasCines {
         mapaCine.put(id, Arrays.asList(SalaDatos.SALA_1, SalaDatos.SALA_2, SalaDatos.SALA_3));
     }
 
-    public static void removeVentas() {
-        getSalasCine(CINE_1.getId()).forEach(salaDatos -> {
-            salaDatos.getSesiones().forEach(sesionDatos -> {
-                sesionDatos.getVentas().clear();
-            });
-        });
-    }
-
     public static void removeVentaPorId(String idVenta) {
-        getSalasCine(CINE_1.getId()).forEach(salaDatos -> {
-            salaDatos.getSesiones().forEach(sesionDatos -> {
-                sesionDatos.getVentas().removeIf(venta -> venta.getId().equals(idVenta));
-            });
-        });
+        getSalasCine(CINE_1.getId()).forEach(salaDatos ->
+                salaDatos.getSesiones().forEach(sesionDatos ->
+                        sesionDatos.getVentas().removeIf(venta -> venta.getId().equals(idVenta))));
     }
 
     public static void addVenta(VentaDatos venta, String idCine) {
@@ -54,23 +44,20 @@ public class GestorVentasCines {
     }
 
     public static void actualizarEntradasDisponibles(SesionDatos sesionDatos, int entradas, String idCine) {
-        mapaCine.get(idCine).forEach(sala -> {
-            sala.getSesiones().forEach(sesion -> {
-                if (sesion.getId().equalsIgnoreCase(sesionDatos.getId())) {
-                    sesion.setEntradasDisponibles(sesion.getEntradasDisponibles() - entradas);
-                }
-            });
-        });
+        mapaCine.get(idCine).forEach(sala ->
+                sala.getSesiones().forEach(sesion -> {
+                    if (sesion.getId().equalsIgnoreCase(sesionDatos.getId())) {
+                        sesion.setEntradasDisponibles(sesion.getEntradasDisponibles() - entradas);
+                    }
+                }));
     }
 
     //TODO hace que mostrar sea buscar y devuelva el objeto a buscar
     public static String mostrar(CineDatos cine) {// etiqueta <pre> para mantener los espacios en blanco, saltos de linea y tabulaciones
         final StringBuilder sb = new StringBuilder("<pre>");
-        mapaCine.get(cine.getId()).forEach(sala -> {
-            sala.getSesiones().forEach(sesion -> {
-                pintarDatos(sb, sala, sesion, cine);
-            });
-        });
+        getSalasCine(cine.getId()).forEach(sala ->
+                sala.getSesiones().forEach(sesion ->
+                        pintarDatos(sb, sala, sesion, cine)));
         sb.append("</pre>");
         return sb.toString();
     }
@@ -79,9 +66,8 @@ public class GestorVentasCines {
         StringBuilder sb = new StringBuilder("<pre>");
         getSalasCine(CINE_1.getId()).forEach(sala -> {
             if (sala.getId().equalsIgnoreCase(sal.getId())) {
-                sala.getSesiones().forEach(sesion -> {
-                    pintarDatos(sb, sala, sesion, cine);
-                });
+                sala.getSesiones().forEach(sesion ->
+                        pintarDatos(sb, sala, sesion, cine));
             }
         });
         sb.append("</pre>");
@@ -90,13 +76,12 @@ public class GestorVentasCines {
 
     public static String mostrar(SesionDatos session, CineDatos cine) {
         StringBuilder sb = new StringBuilder("<pre>");
-        getSalasCine(cine.getId()).forEach(sala -> {
-            sala.getSesiones().forEach(sesion -> {
-                if (sesion.getId().equalsIgnoreCase(session.getId())) {
-                    pintarDatos(sb, sala, sesion, cine);
-                }
-            });
-        });
+        getSalasCine(cine.getId()).forEach(sala ->
+                sala.getSesiones().forEach(sesion -> {
+                    if (sesion.getId().equalsIgnoreCase(session.getId())) {
+                        pintarDatos(sb, sala, sesion, cine);
+                    }
+                }));
         sb.append("</pre>");
         return sb.toString();
     }
@@ -129,13 +114,12 @@ public class GestorVentasCines {
 
     public static int entradasDisponibles(SesionDatos session, CineDatos cine) {
         final int[] entradasDisponibles = {0};
-        getSalasCine(cine.getId()).forEach(sala -> {
-            sala.getSesiones().forEach(sesion -> {
-                if (sesion.getId().equalsIgnoreCase(session.getId())) {
-                    entradasDisponibles[0] = sesion.getEntradasDisponibles();
-                }
-            });
-        });
+        getSalasCine(cine.getId()).forEach(sala ->
+                sala.getSesiones().forEach(sesion -> {
+                    if (sesion.getId().equalsIgnoreCase(session.getId())) {
+                        entradasDisponibles[0] = sesion.getEntradasDisponibles();
+                    }
+                }));
         return entradasDisponibles[0];
     }
 }
